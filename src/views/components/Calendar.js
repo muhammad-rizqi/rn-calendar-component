@@ -4,21 +4,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import libur from '../../services/json/libur-indo.json';
 
-const Calendar = ({activeDate, onDateSelected}) => {
-  const months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-  ];
+const Calendar = ({activeDate, onDateSelected, markedDate}) => {
   const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
   const endDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   let year = activeDate.getFullYear();
@@ -79,30 +65,47 @@ const Calendar = ({activeDate, onDateSelected}) => {
     );
   };
 
+  const isMarkedDate = (item) => {
+    const date = `${year}-${month + 1 < 10 ? `0${month + 1}` : month + 1}-${
+      item < 10 ? `0${item}` : item
+    }`;
+    return markedDate.hasOwnProperty(date) && markedDate[date].length > 0;
+  };
+
   return (
     <View>
-      <Text style={styles.calHeader}>
-        {months[activeDate.getMonth()]} {activeDate.getFullYear()}
-      </Text>
       {matrix.map((row, rowIndex) => {
         let rowItems = row.map((item, colIndex) => {
           return (
-            <Text
+            <View
               key={`days_${colIndex}`}
-              style={[
-                styles.textItem,
-                {
-                  backgroundColor:
-                    item === activeDate.getDate() ? '#ddd' : '#ffffff00',
-                  // Highlight Sundays
-                  color: colIndex === 0 || isHoliday(item) ? '#a00' : '#000',
-                  // Highlight current date
-                  fontWeight: item === activeDate.getDate() || isHoliday(item) ? 'bold' : '100',
-                },
-              ]}
-              onPress={() => _onPress(item)}>
-              {item !== -1 ? item : ''}
-            </Text>
+              style={{
+                height: 32,
+                width: 32,
+                backgroundColor:
+                  item === activeDate.getDate() ? '#ddd' : '#ffffff00',
+                borderRadius: 16,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={[
+                  styles.textItem,
+                  {
+                    // Highlight Sundays
+                    color: colIndex === 0 || isHoliday(item) ? '#a00' : '#000',
+                    // Highlight current date
+                    fontWeight:
+                      item === activeDate.getDate() || isHoliday(item)
+                        ? 'bold'
+                        : '100',
+                  },
+                ]}
+                onPress={() => _onPress(item)}>
+                {item !== -1 ? item : ''}
+              </Text>
+              {isMarkedDate(item) && <View style={styles.dot} />}
+            </View>
           );
         });
         return (
@@ -118,19 +121,16 @@ const Calendar = ({activeDate, onDateSelected}) => {
 export default Calendar;
 
 const styles = StyleSheet.create({
-  textItem: {
-    flex: 1,
-    textAlign: 'center',
-    // Highlight header
-    padding: 4,
-    borderRadius: 10,
+  dot: {
+    height: 4,
+    width: 4,
+    borderRadius: 2,
+    backgroundColor: 'black',
+    alignSelf: 'center',
   },
   weekRow: {
-    flex: 1,
     flexDirection: 'row',
-    padding: 15,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  calHeader: {fontWeight: 'bold', fontSize: 18, textAlign: 'center'},
 });
