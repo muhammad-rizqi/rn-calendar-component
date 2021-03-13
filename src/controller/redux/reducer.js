@@ -20,17 +20,77 @@ const event = {
       description: 'Halo ini event 1',
       color: 'blue',
     },
+  ],
+  '2021-03-12': [
     {
       title: 'Tes',
       location: 'Kretek',
-      description: 'Halo ini event 2',
-      color: 'red',
+      description: 'Halo ini event 1',
+      color: 'blue',
     },
+  ],
+  '2021-03-13': [
     {
       title: 'Tes',
       location: 'Kretek',
-      description: 'Halo ini event 3',
-      color: 'green',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-14': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-16': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-18': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-20': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-22': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-24': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
+  ],
+  '2021-03-26': [
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
     },
   ],
 };
