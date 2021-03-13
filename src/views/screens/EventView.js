@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
@@ -19,6 +18,7 @@ import Event from '../../controller/redux/eventAction';
 import colors from '../styles/color';
 import {months} from '../../controller/helper/helper';
 import {StatusBar} from 'react-native';
+import {styles} from '../styles/styles';
 
 const EventView = () => {
   const [activeDate, setActiveDate] = useState(new Date());
@@ -96,103 +96,74 @@ const EventView = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.flex1}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Modal visible={modalVisible} transparent>
         <StatusBar backgroundColor="#00000088" barStyle="light-content" />
         <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={{flex: 1}}>
-            <ScrollView
-              contentContainerStyle={{
-                backgroundColor: '#00000088',
-                flexGrow: 1,
-                justifyContent: 'center',
-              }}>
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  padding: 16,
-                  margin: 16,
-                  borderRadius: 10,
-                }}>
-                <Text style={{fontSize: 18, marginVertical: 8}}>
+          <View style={styles.flex1}>
+            <ScrollView contentContainerStyle={styles.containerScrollview}>
+              <View style={styles.screenContainer}>
+                <Text style={[styles.textBold, styles.margin8]}>
                   {selectedIndex !== null ? 'Edit' : 'Tambah'} Acara
                 </Text>
-                <View style={{marginVertical: 8}}>
+                <View style={styles.marginV8}>
                   <Text>Hari</Text>
                   <Text>{activeDate.toLocaleString('id')}</Text>
                 </View>
-                <View style={{marginVertical: 8}}>
+                <View style={styles.marginV8}>
                   <Text>Judul Acara</Text>
                   <TextInput
-                    style={{
-                      borderWidth: 1,
-                      borderColor: '#bbb',
-                      borderRadius: 5,
-                    }}
+                    style={styles.inputBorder}
                     value={title}
                     onChangeText={setTitle}
                     placeholder="Nama Acara"
                   />
                 </View>
-                <View style={{marginVertical: 8}}>
+                <View style={styles.marginV8}>
                   <Text>Warna</Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-around',
-                      alignItems: 'center',
-                    }}>
+                  <View style={styles.flexRow}>
                     {Object.keys(colors).map((colour) => (
                       <TouchableOpacity
                         key={colour}
                         onPress={() => setSelectedColor(colour)}
                         style={
-                          colour === selectedColor && {
-                            borderRadius: 18,
-                            borderWidth: 2,
-                            borderColor: colors[colour],
-                            padding: 2,
-                          }
+                          colour === selectedColor && [
+                            {
+                              borderColor: colors[colour],
+                            },
+                            styles.colorPickerBorder,
+                          ]
                         }>
                         <View
-                          style={{
-                            backgroundColor: colors[colour],
-                            width: 30,
-                            height: 30,
-                            borderRadius: 15,
-                          }}
+                          style={[
+                            {
+                              backgroundColor: colors[colour],
+                            },
+                            styles.colorPicker,
+                          ]}
                         />
                       </TouchableOpacity>
                     ))}
                   </View>
                 </View>
-                <View style={{marginVertical: 8}}>
+                <View style={styles.marginV8}>
                   <Text>Lokasi</Text>
                   <TextInput
-                    style={{
-                      borderWidth: 1,
-                      borderColor: '#bbb',
-                      borderRadius: 5,
-                    }}
+                    style={styles.inputBorder}
                     value={location}
                     onChangeText={setLocation}
                     placeholder="Lokasi"
                   />
                 </View>
-                <View style={{marginVertical: 8}}>
+                <View style={styles.marginV8}>
                   <Text>Deskripsi</Text>
                   <TextInput
                     value={description}
                     onChangeText={setDescription}
                     placeholder="Deskripsi"
                     multiline
-                    style={{
-                      borderWidth: 1,
-                      borderColor: '#bbb',
-                      borderRadius: 5,
-                      maxHeight: 100,
-                    }}
+                    style={[{maxHeight: 100}, styles.inputBorder]}
                   />
                 </View>
                 <Button
@@ -213,22 +184,17 @@ const EventView = () => {
           </View>
         </TouchableWithoutFeedback>
       </Modal>
-      <ScrollView style={{padding: 8, backgroundColor: 'white'}}>
-        <View style={{flexDirection: 'row', padding: 8, alignItems: 'center'}}>
-          <Text
-            style={{fontSize: 24, marginHorizontal: 16}}
-            onPress={() => changeMonth(-1)}>
+      <ScrollView style={styles.screen}>
+        <View style={styles.flexRow}>
+          <Text style={styles.calendarButton} onPress={() => changeMonth(-1)}>
             {'<'}
           </Text>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{fontWeight: 'bold', fontSize: 18}}>
+          <View style={styles.flex1Center}>
+            <Text style={styles.textBold}>
               {months[activeDate.getMonth()]} {activeDate.getFullYear()}
             </Text>
           </View>
-          <Text
-            style={{fontSize: 24, marginHorizontal: 16}}
-            onPress={() => changeMonth(+1)}>
+          <Text style={styles.calendarButton} onPress={() => changeMonth(+1)}>
             {'>'}
           </Text>
         </View>
@@ -241,18 +207,9 @@ const EventView = () => {
         />
         {libur.hasOwnProperty(getFormatedDate()) && (
           <>
-            <Text style={{fontWeight: '700', margin: 8}}>Hari Nasional</Text>
-            <View
-              style={{
-                borderLeftWidth: 3,
-                borderLeftColor: colors.red,
-                borderRadius: 8,
-                padding: 16,
-                margin: 8,
-                backgroundColor: 'white',
-                elevation: 5,
-              }}>
-              <Text style={{fontWeight: '700'}}>
+            <Text style={[styles.textBold, styles.margin8]}>Hari Nasional</Text>
+            <View style={[styles.listItem, {borderLeftColor: colors.red}]}>
+              <Text style={styles.textBold}>
                 {libur[getFormatedDate()].deskripsi}
               </Text>
             </View>
@@ -260,40 +217,24 @@ const EventView = () => {
         )}
         {event.hasOwnProperty(dateEvent) && event[dateEvent].length > 0 ? (
           <View>
-            <Text style={{fontWeight: '700', margin: 8}}>List Acara </Text>
+            <Text style={[styles.textBold, styles.margin8]}>List Acara </Text>
             {event[dateEvent].map((ev, index) => (
               <TouchableOpacity
                 onPress={() => setUpdate(ev, index)}
                 key={index}
-                style={{
-                  borderLeftWidth: 3,
-                  borderLeftColor: colors[ev.color],
-                  borderRadius: 8,
-                  padding: 16,
-                  margin: 8,
-                  backgroundColor: 'white',
-                  elevation: 5,
-                }}>
-                <Text style={{fontWeight: '700'}}>{ev.title}</Text>
+                style={[{borderLeftColor: colors[ev.color]}, styles.listItem]}>
+                <Text style={styles.textBold}>{ev.title}</Text>
                 <Text numberOfLines={3}>{ev.description}</Text>
               </TouchableOpacity>
             ))}
           </View>
         ) : null}
       </ScrollView>
-      <View style={{position: 'absolute', bottom: 24, right: 24}}>
+      <View style={styles.fabContainer}>
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
-          style={{
-            elevation: 3,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 52,
-            borderRadius: 26,
-            height: 52,
-            backgroundColor: colors.blue,
-          }}>
-          <Text style={{fontSize: 24, color: 'white'}}>+</Text>
+          style={styles.fabButton}>
+          <Text style={styles.fabText}>+</Text>
         </TouchableOpacity>
       </View>
     </View>
