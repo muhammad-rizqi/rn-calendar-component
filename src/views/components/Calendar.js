@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {days} from '../../controller/helper/helper';
 import libur from '../../services/json/libur-indo.json';
 
@@ -77,8 +77,9 @@ const Calendar = ({activeDate, onDateSelected, markedDate}) => {
       {matrix.map((row, rowIndex) => {
         let rowItems = row.map((item, colIndex) => {
           return (
-            <View
+            <TouchableOpacity
               key={`days_${colIndex}`}
+              onPress={() => _onPress(item)}
               style={{
                 height: 32,
                 width: 32,
@@ -100,12 +101,11 @@ const Calendar = ({activeDate, onDateSelected, markedDate}) => {
                         ? 'bold'
                         : '100',
                   },
-                ]}
-                onPress={() => _onPress(item)}>
+                ]}>
                 {item !== -1 ? item : ''}
               </Text>
               {isMarkedDate(item) && <View style={styles.dot} />}
-            </View>
+            </TouchableOpacity>
           );
         });
         return (

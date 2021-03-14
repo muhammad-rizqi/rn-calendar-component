@@ -20,12 +20,16 @@ export const week = (activeDate) => {
   const selectedDay = date.getDay();
   const startDay = date.getDate() - selectedDay;
 
+  const startDate = new Date(date.setDate(startDay));
+  // console.log(startDate);
+
   for (let i = 0; i < 7; i++) {
-    const newDate = new Date(date.setDate(startDay + i));
-    const formatedDate = newDate.toISOString().substr(0, 10);
+    const formatedDate = startDate.toISOString().substr(0, 10);
     matrix.push(formatedDate);
+    startDate.setDate(startDate.getDate() + 1);
   }
 
+  console.log(matrix);
   return matrix;
 };
 

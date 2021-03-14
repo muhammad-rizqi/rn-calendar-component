@@ -11,6 +11,7 @@ const WeeklyCalendar = ({
   onEventSelected,
   nationalDay,
 }) => {
+  const now = new Date(activeDate);
   const onPress = (item) => {
     if (onDateSelected && !item.match && item !== -1) {
       const dateObject = new Date(activeDate.setDate(item));
@@ -26,21 +27,10 @@ const WeeklyCalendar = ({
     }
   };
 
-  const isActive = (item) => {
-    const date = new Date(item).getDate();
-    const active = activeDate.getDate();
-    return date === active;
-  };
-
   const isHoliday = (item) => {
     const dateObject = new Date(activeDate.setDate(item));
     const month = dateObject.getMonth();
     const year = dateObject.getFullYear();
-    console.log(
-      `${year}${month + 1 < 10 ? `0${month + 1}` : month + 1}${
-        item < 10 ? `0${item}` : item
-      }`,
-    );
     return nationalDay.hasOwnProperty(
       `${year}${month + 1 < 10 ? `0${month + 1}` : month + 1}${
         item < 10 ? `0${item}` : item
@@ -50,7 +40,7 @@ const WeeklyCalendar = ({
 
   return (
     <View style={{flexDirection: 'row', flex: 1}}>
-      {week(activeDate).map((w, i) => (
+      {week(now).map((w, i) => (
         <View key={w} style={{flex: 1}}>
           <TouchableOpacity
             onPress={() => onPress(new Date(w).getDate())}
@@ -61,7 +51,7 @@ const WeeklyCalendar = ({
             }}>
             <View
               style={{
-                backgroundColor: isActive(w) ? '#aef' : '#00000000',
+                backgroundColor: now.getDay() === i ? '#aef' : '#00000000',
               }}>
               <Text style={{textAlign: 'center'}}>{days[i]}</Text>
               <Text
@@ -73,7 +63,7 @@ const WeeklyCalendar = ({
                 {new Date(w).getDate()}
               </Text>
             </View>
-            {weeklyEvent.hasOwnProperty(w) &&
+            {w in weeklyEvent &&
               weeklyEvent[w].map((ev, index) => (
                 <TouchableOpacity
                   key={index}

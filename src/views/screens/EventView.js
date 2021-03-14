@@ -210,14 +210,21 @@ const EventView = () => {
             flexDirection: 'row',
             justifyContent: 'space-around',
             margin: 8,
+            alignItems: 'center'
           }}>
-          <Text style={styles.textBold} onPress={() => setViewType('daily')}>
+          <Text
+            style={{fontSize: viewType === 'daily' ? 18 : 14}}
+            onPress={() => setViewType('daily')}>
             Harian
           </Text>
-          <Text style={styles.textBold} onPress={() => setViewType('weekly')}>
+          <Text
+            style={{fontSize: viewType === 'weekly' ? 18 : 14}}
+            onPress={() => setViewType('weekly')}>
             Pekanan
           </Text>
-          <Text style={styles.textBold} onPress={() => setViewType('monthly')}>
+          <Text
+            style={{fontSize: viewType === 'monthly' ? 18 : 14}}
+            onPress={() => setViewType('monthly')}>
             Bulanan
           </Text>
         </View>
