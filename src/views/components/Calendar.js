@@ -2,10 +2,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {days} from '../../controller/helper/helper';
 import libur from '../../services/json/libur-indo.json';
 
 const Calendar = ({activeDate, onDateSelected, markedDate}) => {
-  const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
   const endDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   let year = activeDate.getFullYear();
   let month = activeDate.getMonth();

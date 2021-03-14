@@ -1,3 +1,4 @@
+import {week} from '../helper/helper';
 import store from './store';
 
 const addEvent = (date, event) => {
@@ -33,27 +34,13 @@ const updateEvent = (date, index, event) => {
 
 const getEventWeekly = (date) => {
   const {event} = store.getState();
-  const parsedDate = new Date(date);
-  const year = parsedDate.getFullYear();
-  const month = parsedDate.getMonth();
-  const dayOfWeek = parsedDate.getDay();
-  const startDateofWeek = parsedDate.getDate() - dayOfWeek;
-  const endDateofWeek = startDateofWeek + 6;
+  const weeklyEvent = {};
 
-  const formatedDate = (i) => {
-    return `${year}-${month + 1 < 10 ? `0${month + 1}` : month + 1}-${
-      i < 10 ? `0${i}` : i
-    }`;
-  };
+  week(date).map((key) =>
+    event.hasOwnProperty(key) ? (weeklyEvent[key] = event[key]) : null,
+  );
 
-  let filtered = {};
-  for (let i = startDateofWeek; i <= endDateofWeek; i++) {
-    if (event.hasOwnProperty(formatedDate(i))) {
-      filtered[formatedDate(i)] = event[formatedDate(i)];
-    }
-  }
-
-  return filtered;
+  return weeklyEvent;
 };
 
 export default {

@@ -13,12 +13,68 @@ const tokenReducer = (state = '', action) => {
 };
 
 const event = {
-  '2021-03-11': [
+  '2021-03-01': [
+    {
+      title: 'Pelajaran React Native',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'red',
+    },
+    {
+      title: 'Tes aja kali bisa mereun',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'blue',
+    },
     {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
+      color: 'green',
+    },
+    {
+      title: 'Tes Lagi',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'yellow',
+    },
+    {
+      title: 'Tes yang banyak',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'orange',
+    },
+  ],
+  '2021-03-11': [
+    {
+      title: 'Pelajaran React Native',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'red',
+    },
+    {
+      title: 'Tes aja kali bisa mereun',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
       color: 'blue',
+    },
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'green',
+    },
+    {
+      title: 'Tes Lagi',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'yellow',
+    },
+    {
+      title: 'Tes yang banyak',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'orange',
     },
   ],
   '2021-03-12': [
@@ -26,7 +82,7 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
-      color: 'blue',
+      color: 'black',
     },
   ],
   '2021-03-13': [
@@ -34,15 +90,39 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
-      color: 'blue',
+      color: 'purple',
     },
   ],
   '2021-03-14': [
     {
-      title: 'Tes',
+      title: 'Pelajaran React Native',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'red',
+    },
+    {
+      title: 'Tes aja kali bisa mereun',
       location: 'Kretek',
       description: 'Halo ini event 1',
       color: 'blue',
+    },
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'green',
+    },
+    {
+      title: 'Tes Lagi',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'yellow',
+    },
+    {
+      title: 'Tes yang banyak',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'orange',
     },
   ],
   '2021-03-16': [
@@ -50,7 +130,7 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
-      color: 'blue',
+      color: 'red',
     },
   ],
   '2021-03-18': [
@@ -58,7 +138,7 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
-      color: 'blue',
+      color: 'green',
     },
   ],
   '2021-03-20': [
@@ -66,7 +146,7 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
-      color: 'blue',
+      color: 'orange',
     },
   ],
   '2021-03-22': [
@@ -74,15 +154,39 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
-      color: 'blue',
+      color: 'black',
     },
   ],
   '2021-03-24': [
     {
-      title: 'Tes',
+      title: 'Pelajaran React Native',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'red',
+    },
+    {
+      title: 'Tes aja kali bisa mereun',
       location: 'Kretek',
       description: 'Halo ini event 1',
       color: 'blue',
+    },
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'green',
+    },
+    {
+      title: 'Tes Lagi',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'yellow',
+    },
+    {
+      title: 'Tes yang banyak',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'orange',
     },
   ],
   '2021-03-26': [
@@ -90,7 +194,39 @@ const event = {
       title: 'Tes',
       location: 'Kretek',
       description: 'Halo ini event 1',
+      color: 'purple',
+    },
+  ],
+  '2021-03-31': [
+    {
+      title: 'Pelajaran React Native',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'red',
+    },
+    {
+      title: 'Tes aja kali bisa mereun',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
       color: 'blue',
+    },
+    {
+      title: 'Tes',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'green',
+    },
+    {
+      title: 'Tes Lagi',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'yellow',
+    },
+    {
+      title: 'Tes yang banyak',
+      location: 'Kretek',
+      description: 'Halo ini event 1',
+      color: 'orange',
     },
   ],
 };

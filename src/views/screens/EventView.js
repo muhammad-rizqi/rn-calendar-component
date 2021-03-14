@@ -16,11 +16,15 @@ import libur from '../../services/json/libur-indo.json';
 import {useDispatch, useSelector} from 'react-redux';
 import Event from '../../controller/redux/eventAction';
 import colors from '../styles/color';
-import {months} from '../../controller/helper/helper';
+import {days, months} from '../../controller/helper/helper';
 import {StatusBar} from 'react-native';
 import {styles} from '../styles/styles';
+import DailyView from '../components/DailyView';
+import MonthlyCalendar from '../components/MonthlCalendar';
+import WeeklyCalendar from '../components/WeeklyCalendar';
 
 const EventView = () => {
+  const [viewType, setViewType] = useState('monthly');
   const [activeDate, setActiveDate] = useState(new Date());
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
@@ -29,6 +33,7 @@ const EventView = () => {
   const [selectedColor, setSelectedColor] = useState('blue');
   const [selectedIndex, setSelectedIndex] = useState(null);
   const dateEvent = activeDate.toISOString().substr(0, 10);
+  const [showCalendar, setShowCalendar] = useState(false);
   const {event} = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -36,16 +41,6 @@ const EventView = () => {
     setActiveDate((date) => {
       return new Date(date.setMonth(date.getMonth() + n));
     });
-  };
-
-  const getFormatedDate = () => {
-    const item = activeDate.getDate();
-    const year = activeDate.getFullYear();
-    const month = activeDate.getMonth();
-
-    return `${year}${month + 1 < 10 ? `0${month + 1}` : month + 1}${
-      item < 10 ? `0${item}` : item
-    }`;
   };
 
   const addTodo = () => {
@@ -184,13 +179,16 @@ const EventView = () => {
           </View>
         </TouchableWithoutFeedback>
       </Modal>
-      <ScrollView style={styles.screen}>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.flexRow}>
           <Text style={styles.calendarButton} onPress={() => changeMonth(-1)}>
             {'<'}
           </Text>
           <View style={styles.flex1Center}>
-            <Text style={styles.textBold}>
+            <Text
+              style={[styles.textBold, {fontSize: 18}]}
+              onPress={() => setShowCalendar(!showCalendar)}>
+              {days[activeDate.getDay()]}, {activeDate.getDate()}{' '}
               {months[activeDate.getMonth()]} {activeDate.getFullYear()}
             </Text>
           </View>
@@ -198,37 +196,59 @@ const EventView = () => {
             {'>'}
           </Text>
         </View>
-        <Calendar
-          markedDate={event}
-          activeDate={activeDate}
-          onDateSelected={(date) => {
-            setActiveDate(date.dateObject);
-          }}
-        />
-        {libur.hasOwnProperty(getFormatedDate()) && (
-          <>
-            <Text style={[styles.textBold, styles.margin8]}>Hari Nasional</Text>
-            <View style={[styles.listItem, {borderLeftColor: colors.red}]}>
-              <Text style={styles.textBold}>
-                {libur[getFormatedDate()].deskripsi}
-              </Text>
-            </View>
-          </>
+        {showCalendar && (
+          <Calendar
+            markedDate={event}
+            activeDate={activeDate}
+            onDateSelected={(date) => {
+              setActiveDate(date.dateObject);
+            }}
+          />
         )}
-        {event.hasOwnProperty(dateEvent) && event[dateEvent].length > 0 ? (
-          <View>
-            <Text style={[styles.textBold, styles.margin8]}>List Acara </Text>
-            {event[dateEvent].map((ev, index) => (
-              <TouchableOpacity
-                onPress={() => setUpdate(ev, index)}
-                key={index}
-                style={[{borderLeftColor: colors[ev.color]}, styles.listItem]}>
-                <Text style={styles.textBold}>{ev.title}</Text>
-                <Text numberOfLines={3}>{ev.description}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        ) : null}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            margin: 8,
+          }}>
+          <Text style={styles.textBold} onPress={() => setViewType('daily')}>
+            Harian
+          </Text>
+          <Text style={styles.textBold} onPress={() => setViewType('weekly')}>
+            Pekanan
+          </Text>
+          <Text style={styles.textBold} onPress={() => setViewType('monthly')}>
+            Bulanan
+          </Text>
+        </View>
+
+        {viewType === 'daily' ? (
+          <DailyView
+            activeDate={activeDate}
+            nationalDay={libur}
+            event={event}
+            onEventPress={setUpdate}
+          />
+        ) : viewType === 'monthly' ? (
+          <MonthlyCalendar
+            activeDate={activeDate}
+            markedDate={event}
+            onDateSelected={(date) => {
+              setActiveDate(date.dateObject);
+            }}
+            onEventSelected={setUpdate}
+          />
+        ) : (
+          <WeeklyCalendar
+            activeDate={activeDate}
+            weeklyEvent={event}
+            nationalDay={libur}
+            onDateSelected={(date) => {
+              setActiveDate(date.dateObject);
+            }}
+            onEventSelected={setUpdate}
+          />
+        )}
       </ScrollView>
       <View style={styles.fabContainer}>
         <TouchableOpacity
